@@ -8,18 +8,20 @@ clearly stated code of conduct policy which addresses harassment.
 Installation
 ------------
 
-$ git clone https://github.com/paulsmith/letsgetlouder
-$ cd letsgetlouder
-$ virtualenv .
-$ . bin/activate
-$ pip install -r requirements.txt
-$ python manage.py syncdb
-$ python manage.py runserver
+::
+
+    $ git clone https://github.com/paulsmith/letsgetlouder
+    $ cd letsgetlouder
+    $ virtualenv .
+    $ . bin/activate
+    $ pip install -r requirements.txt
+    $ python manage.py syncdb
+    $ python manage.py runserver
 
 To test the social network integration, add the following line to your
-/etc/hosts:
+/etc/hosts::
 
-127.0.0.1 letsgetlouder.com
+    127.0.0.1 letsgetlouder.com
 
 Obtain the client IDs and consumer keys from Paul or Julia and add them
 to your local_settings.py
