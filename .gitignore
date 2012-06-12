@@ -1,6 +1,7 @@
 letsgetlouder.db
 local_settings.py
 *.py[co]
+.DS_Store
 
 # Packages
 *.egg

@@ -1,0 +1,102 @@
+/* Bootstrap imports
+================================================== */
+@import "../libs/bootstrap/less/reset.less";
+@import "../libs/bootstrap/less/variables.less";
+@import "../libs/bootstrap/less/mixins.less";
+@import "../libs/bootstrap/less/scaffolding.less";
+@import "../libs/bootstrap/less/grid.less";
+@import "../libs/bootstrap/less/layouts.less";
+@import "../libs/bootstrap/less/type.less";
+@import "../libs/bootstrap/less/code.less";
+@import "../libs/bootstrap/less/forms.less";
+@import "../libs/bootstrap/less/tables.less";
+@import "../libs/bootstrap/less/buttons.less";
+@import "../libs/bootstrap/less/alerts.less";
+@import "../libs/bootstrap/less/close.less";
+@import "../libs/bootstrap/less/navs.less";
+@import "../libs/bootstrap/less/navbar.less";
+@import "../libs/bootstrap/less/dropdowns.less";
+@import "../libs/bootstrap/less/carousel.less";
+@import "../libs/bootstrap/less/hero-unit.less";
+@import "../libs/bootstrap/less/responsive.less";
+@import "../libs/bootstrap/less/utilities.less";
+@import "../libs/bootstrap/less/tooltip.less";
+@import "../libs/bootstrap/less/sprites.less";
+@import "../libs/bootstrap/less/breadcrumbs.less";
+@import "../libs/bootstrap/less/component-animations.less";
+
+/* Sitewide styles
+================================================== */
+body {
+	background-color: #f9cc2b;
+}
+
+@font-face {
+    font-family: 'Alfaslabone';
+    src: url('../fonts/alfaslabone-regular-webfont.eot');
+    src: url('../fonts/alfaslabone-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/alfaslabone-regular-webfont.woff') format('woff'),
+         url('../fonts/alfaslabone-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Alfaslabone', Helvetica, sans-serif;
+	font-weight: normal;
+	color: rgba(0,0,0, 0.8);
+	text-shadow: 1px 4px 6px #f9cc2b, 0 0 0 #000, 1px 4px 6px #f9cc2b;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+h2 {
+	line-height: 24px;
+}
+
+footer { 
+	font-size: 11px;
+	border-top: 2px dotted @white;
+    margin-top: 45px;
+    padding: 35px 0 20px;
+}
+
+.navbar {
+	.navbar-inner {
+		background-color: transparent;
+		background-image: none;
+		box-shadow: none;
+		.nav {
+			li {
+				a {
+					color: #333;
+					&:hover{
+						color: @blue;
+					}
+				}
+			}
+		}
+	}
+}
+
+#signees {
+	padding: 20px 0;
+	ul {
+		li {
+			font-size: 15px;
+		}
+	}
+}
+
+blockquote {
+	padding: 15px 0 15px 18px;
+	margin: 15px 0 25px 0;
+}
+
+.signup {
+	position: fixed;
+}
+
