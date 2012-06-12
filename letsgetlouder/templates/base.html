@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Let’s Get Louder</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
+        <style>
+            footer { margin-top: 2em; padding-top: 2em; border-top: 1px solid #ccc };
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Let’s Get Louder</h1>
+            </header>
+            {% block content %}{% endblock %}
+            <footer>
+                Copyright &copy; 2012
+            </footer>
+        </div>
+    </body>
+</html>
+

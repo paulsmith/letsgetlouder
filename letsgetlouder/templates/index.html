@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>The pledge</h2>
+{% include "pledge.html" %}
+
+<h2>Sign the pledge</h2>
+{% if not user or not user.get_profile.signed %}
+<p>Click to sign in with one of your social network accounts:</p>
+<ul>
+    {% for backend in social_auth.backends %}
+    <li><a class="btn {{ backend }}" href="/login/{{ backend }}/">{{ backend }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>
+    <b>You have signed the pledge!</b>
+    <a href="/account/">Manage your account</a>
+</p>
+{% endif %}
+
+<h2>Django members who have signed the pledge</h2>
+<div id="signees">
+    <ul>
+        {% for signee in signees %}
+        <li>{{ signee.get_full_name }}</li>
+        {% empty %}
+        <li><i>None yet—be the first!</i></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
