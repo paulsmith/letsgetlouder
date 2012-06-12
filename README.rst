@@ -14,7 +14,7 @@ Installation
     $ cd letsgetlouder
     $ virtualenv .
     $ . bin/activate
-    $ pip install -r requirements.txt
+    $ python setup.py develop
     $ python manage.py syncdb
     $ python manage.py runserver
 
