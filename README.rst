@@ -14,6 +14,7 @@ Installation
     $ cd letsgetlouder
     $ virtualenv .
     $ . bin/activate
+    $ cp local_settings.example.py local_settings.py
     $ python setup.py develop
     $ python manage.py syncdb
     $ python manage.py runserver
