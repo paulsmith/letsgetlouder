@@ -1,29 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h2>Your account</h2>
-{% if user.get_profile.signed %}
-    <p class="lead">Thank you {{ user.get_full_name }} for signing this pledge. <a class="btn btn-danger" href="/unsign/">X Un-sign</a></p>
-{% else %}
-    <p class="lead">You have not signed the pledge. <a class="btn btn-primary" href="/sign/">Sign the pledge</a></p>
-{% endif %}
-
-<h3>Connected accounts:</h3>
-<ul class="unstyled">
-    {% for user in social_auth.associated %}
-    <li><span class="{{ user.provider }}">{{ user.provider|capfirst }}</span>
-        <a class="btn btn-danger" href="/disconnect/{{ user.provider }}/">Disconnect</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<div class="row">
+<div class="account row">
     <div class="span12">
+    <h2>Your account</h2>
+    {% if user.get_profile.signed %}
+        <p class="lead">Thank you {{ user.get_full_name }} for signing! View your pledge below:</p>
+        {% include "pledge.html" %}
+        <a class="btn btn-inverse" href="/unsign/"><b>X</b> Un-sign the pledge</a>
+    {% else %}
+        <p class="lead">You have not signed the pledge. <a class="btn btn-primary" href="/sign/">Sign the pledge</a></p>
+    {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="span4">
+        <h3>Your connected accounts:</h3>
+        <ul class="social unstyled">
+            {% for user in social_auth.associated %}
+            <li><img src="{{ STATIC_URL }}img/{{ user.provider }}.png">
+                <a class="btn btn-inverse" href="/disconnect/{{ user.provider }}/">Disconnect</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="span8">
         <h3>Other accounts you can connect to:</h3>
+        <ul class="social unstyled">
         {% for provider in social_auth.not_associated %}
-            <a class="btn" href="/associate/{{ provider }}/">{{ provider|capfirst }}</a>
+            <li><img src="{{ STATIC_URL }}img/{{ provider }}.png"><a class="btn" href="/associate/{{ provider }}/">{{ provider|capfirst }}</a></li>
         {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}

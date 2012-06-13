@@ -33,9 +33,9 @@
                 <div class="navbar-inner">
                     <div class="container">
                     <ul class="nav pull-right">
-                      <li><a href="/"><i class="icon-home"></i> Home</a></li>
-                        <li><a href="/account/"><i class="icon-user"></i> Manage account</a></li>
-                        <li><a href="/log-out/"><i class="icon-off"></i> Log out</a></li>
+                      <li><a href="/"><i class="icon-home"> </i>Home</a></li>
+                      <li><a href="/account/"><i class="icon-user"> </i>Manage account</a></li>
+                      <li><a href="/log-out/"><i class="icon-off"> </i>Log out</a></li>
                     </ul>
                 </div>
             </div>
@@ -43,8 +43,8 @@
         {% endif %}
         <div class="container">
             <header>
-                <h1>Let’s Get Louder</h1>
-                <p class="lead">Some copy on how this site got started and why you should sign the pledge.</p>
+                <h1>Let’s Get Louder <img src="{{ STATIC_URL }}img/horn.png"></h1>
+                <p class="lead">Because we've had enough.</p>
             </header>
             <div class="content">
             {% block content %}{% endblock %}

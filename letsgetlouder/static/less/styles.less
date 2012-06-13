@@ -31,26 +31,13 @@ body {
 	background-color: #f9cc2b;
 }
 
-@font-face {
-    font-family: 'Alfaslabone';
-    src: url('../fonts/alfaslabone-regular-webfont.eot');
-    src: url('../fonts/alfaslabone-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/alfaslabone-regular-webfont.woff') format('woff'),
-         url('../fonts/alfaslabone-regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-h1, h2, h3, h4 {
-	font-family: 'Alfaslabone', Helvetica, sans-serif;
-	font-weight: normal;
-	color: rgba(0,0,0, 0.8);
-	text-shadow: 1px 4px 6px #f9cc2b, 0 0 0 #000, 1px 4px 6px #f9cc2b;
-}
-
 h1 {
-	font-size: 48px;
+	font-size: 50px;
+	line-height: 48px;
+	img {
+		margin-top: -15px;
+		width: 75px;
+	}
 }
 
 h2 {
@@ -73,8 +60,12 @@ footer {
 			li {
 				a {
 					color: #333;
+					padding: 9px 5px 11px;
+					i {
+						width: 16px;
+					}
 					&:hover{
-						color: @blue;
+						text-decoration: underline;
 					}
 				}
 			}
@@ -82,6 +73,38 @@ footer {
 	}
 }
 
+/* Typography
+================================================== */
+@font-face {
+    font-family: 'Alfaslabone';
+    src: url('../fonts/alfaslabone-regular-webfont.eot');
+    src: url('../fonts/alfaslabone-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/alfaslabone-regular-webfont.woff') format('woff'),
+         url('../fonts/alfaslabone-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'FoundationIconsSocial';
+	src: url('../fonts/foundation-icons-social.eot');
+	src: url('../fonts/foundation-icons-social.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/foundation-icons-social.woff') format('woff'),
+	url('../fonts/foundation-icons-social.ttf') format('truetype'),
+	url('../fonts/foundation-icons-social.svg#FoundationIconsSocial') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Alfaslabone', Helvetica, sans-serif;
+	font-weight: normal;
+	color: rgba(0,0,0, 0.8);
+	text-shadow: 1px 4px 6px #f9cc2b, 0 0 0 #000, 1px 4px 6px #f9cc2b;
+}
+
+/* Miscellaneous
+================================================== */
 #signees {
 	padding: 20px 0;
 	ul {
@@ -91,12 +114,56 @@ footer {
 	}
 }
 
-blockquote {
-	padding: 15px 0 15px 18px;
-	margin: 15px 0 25px 0;
+.signup {
+	position:fixed;
+	left: 400px;
 }
 
-.signup {
-	position: fixed;
+blockquote {
+	border: none;
+	display: block;
+	width: 100%;
+	margin-top: 25px;
+	padding: 0;
 }
+
+blockquote:before, blockquote:after {
+	.opacity(30);
+	display: block;
+	font-size: 100px;
+	position: relative;
+}
+
+blockquote:before {
+	content: '\201C';
+	margin-left: -0.8px;
+	.pull-left;
+	top: 15px;
+}
+
+blockquote:after {
+	content: '\201D';
+	.pull-right;
+}
+
+.account {
+	margin-bottom: 30px;
+}
+
+ul.social {
+	li {
+		padding-bottom: 8px;
+		img { width: 45px; }
+	}
+}
+
+/* Responsive styles
+================================================== */
+@media (min-width: 380px) and (max-width: 768px) {
+	.signup {
+		position: relative;
+		left: 0;
+	}
+}
+
 

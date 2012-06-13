@@ -3,17 +3,29 @@
 {% block content %}
 <div class="row">
     <div class="span12">
-    <h2>The pledge</h2>
-    {% include "pledge.html" %}
+        <h2>The pledge</h2>
+        {% include "pledge.html" %}
     </div>
 </div>
 
 <div class="row">
+    <div class="span6">
+        <h2>Signed</h2>
+        <div id="signees">
+            <ul class="unstyled">
+                {% for signee in signees %}
+                <li>{{ signee.get_full_name }}</li>
+                {% empty %}
+                <li><i>None yet—be the first!</i></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     {% if not user.get_profile.signed %}
-    <div class="signup span4">
-        <h2>Wanna get loud?</h2>
+    <div class="signup span6">
+        <h2>Join the movement</h2>
         {% if not user or not user.get_profile.signed %}
-            <p>Choose your preferred social media account to sign the pledge with and get loud!</p>
+            <p>Sign the pledge with one of your accounts below and join us in getting loud!</p>
             <ul class="unstyled">
                 {% for backend in social_auth.backends %}
                 <li class="btn {{ backend }}"><a href="/login/{{ backend }}/">{{ backend|capfirst }}</a></li>
@@ -27,18 +39,6 @@
         {% endif %}
     </div>
     {% endif %}
-    <div class="{% if not user.get_profile.signed %}span8 offset4{% else %}span12{% endif %}">
-        <h2>Django people who have signed the pledge:</h2>
-        <div id="signees">
-            <ul class="unstyled">
-                {% for signee in signees %}
-                <li>{{ signee.get_full_name }}</li>
-                {% empty %}
-                <li><i>None yet—be the first!</i></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
 </div>
 
 {% endblock %}
