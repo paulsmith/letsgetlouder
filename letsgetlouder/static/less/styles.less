@@ -46,9 +46,13 @@ h2 {
 
 footer { 
 	font-size: 11px;
-	border-top: 2px dotted @white;
+	border-top: 3px solid @black;
     margin-top: 45px;
     padding: 35px 0 20px;
+}
+
+a.btn {
+	font-weight: bold;
 }
 
 .navbar {
@@ -71,6 +75,12 @@ footer {
 			}
 		}
 	}
+}
+
+.page-header {
+	padding: 0;
+	margin-bottom: 25px;
+	border-bottom: 3px solid @black;
 }
 
 /* Typography
@@ -151,9 +161,15 @@ blockquote:after {
 }
 
 ul.social {
+	padding-top: 10px;
 	li {
-		padding-bottom: 8px;
-		img { width: 45px; }
+		.pull-left;
+		margin-right: 8px;
+		img { 
+			height: 30px;
+			padding: 0;
+			margin: 0;
+		}
 	}
 }
 

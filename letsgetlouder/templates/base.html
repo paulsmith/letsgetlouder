@@ -42,7 +42,7 @@
         </div>
         {% endif %}
         <div class="container">
-            <header>
+            <header class="page-header">
                 <h1>Let’s Get Louder <img src="{{ STATIC_URL }}img/horn.png"></h1>
                 <p class="lead">Because we've had enough.</p>
             </header>
@@ -50,7 +50,11 @@
             {% block content %}{% endblock %}
             </div>
             <footer>
-                <small>Copyright &copy;2012 - Forever and Ever</small>
+                Copyright &copy;2012 - Forever and Ever
+                <ul class="colophon pull-right">
+                  Created with <a href="http://djangoproject.com"><b>Django</b></a>
+                </ul>
+
             </footer>
         </div>
     </body>
