@@ -17,7 +17,7 @@ import os
 import site
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-ROOT = os.path.abspath(os.path.join(ROOT, os.pardir))
+path = os.path.abspath(os.path.join(ROOT, os.pardir))
 site.addsitedir(path)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "letsgetlouder.settings")
