@@ -1,5 +1,7 @@
 from letsgetlouder.settings import *
 
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 COMPRESS_ENABLED = False
 
 INTERNAL_IPS = ('127.0.0.1', )

@@ -1,11 +1,11 @@
 # Django settings for letsgetlouder project.
 import os
 
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
 where = os.path.dirname(__file__)
 root = os.path.abspath(os.path.join(where, os.pardir))
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Julia Elman', 'julia.elman@gmail.com'),
@@ -202,3 +202,8 @@ try:
     from local_settings import *
 except ImportError, e:
     print >> sys.stderr, "Unable to import local settings:", e
+
+COMPRESS_ENABLED = False # enable in local_settings.py if needed
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+)
