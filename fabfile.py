@@ -48,7 +48,7 @@ def production():
 def update_requirements():
     """Update Python requirements."""
     require('environment')
-    venv('pip install -r %s' % os.path.join(env.code_root, 'requirements.txt'))
+    venv('pip install -r %s' % os.path.join(env.code_root, 'requirements/apps.txt'))
 
 
 @task
