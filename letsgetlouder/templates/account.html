@@ -1,51 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<ul class="breadcrumb">
-    <li><a href="/">Home</a></li>
-</ul>
-
-<h2>Your account</h2>
-
-<p>Your name: {{ user.get_full_name }}</p>
-
-<p><a class="btn" href="/log-out/">Log out</a></p>
-
-<h3>The pledge</h3>
-{% include "pledge.html" %}
-
-{% if user.get_profile.signed %}
-<p class="signed">
-    <b>You have signed the pledge!</b>
-</p>
-
-<p class="unsign">
-    I changed my mind, I want to unsign the pledge.
-    <a class="btn btn-danger" href="/unsign/">Unsign</a>
-</p>
-{% else %}
-<p class="not-signed">
-    <i>You have not signed the pledge</i>
-    <a class="btn btn-primary" href="/sign/">Sign the pledge</a>
-</p>
-{% endif %}
-
-<p>Associated social networks:</p>
-<ul>
-    {% for user in social_auth.associated %}
-    <li>{{ user.provider }}
-        <a class="btn btn-danger" href="/disconnect/{{ user.provider }}/">disconnect</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<h2>Connect</h2>
-<p>Connect your Let’s Get Louder account with your:</p>
-<ul>
-    {% for provider in social_auth.not_associated %}
-    <li>
-        <a class="btn" href="/associate/{{ provider }}/">{{ provider }}</a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="account row">
+    <div class="span12">
+    <h2>Your account</h2>
+    {% if user.get_profile.signed %}
+        <p class="lead">Thank you {{ user.get_full_name }} for signing! View your pledge below:</p>
+        {% include "pledge.html" %}
+        <a class="btn btn-danger" href="/unsign/"><b>X</b> Un-sign the pledge</a>
+    {% else %}
+        <p class="lead">You have not signed the pledge. <a class="btn btn-success" href="/sign/">Sign the pledge</a></p>
+    {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="span4">
+        <h3>Your connected accounts:</h3>
+        <ul class="social unstyled">
+            {% for user in social_auth.associated %}
+            <li>
+                <a class="btn btn-danger" href="/disconnect/{{ user.provider }}/"><img src="{{ STATIC_URL }}img/{{ user.provider }}.png"> DISCONNECT</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="span8">
+        <h3>Other accounts you can connect to:</h3>
+        <ul class="social unstyled">
+        {% for provider in social_auth.not_associated %}
+            <li><a class="btn" href="/associate/{{ provider }}/"><img src="{{ STATIC_URL }}img/{{ provider }}.png"> CONNECT</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}

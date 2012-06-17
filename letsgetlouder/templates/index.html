@@ -1,33 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>The pledge</h2>
-{% include "pledge.html" %}
+<div class="row">
+    <div class="span12">
+        <h2>The pledge</h2>
+        {% include "pledge.html" %}
+    </div>
+</div>
 
-<h2>Sign the pledge</h2>
-{% if not user or not user.get_profile.signed %}
-<p>Click to sign in with one of your social network accounts:</p>
-<ul>
-    {% for backend in social_auth.backends %}
-    <li><a class="btn {{ backend }}" href="/login/{{ backend }}/">{{ backend }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>
-    <b>You have signed the pledge!</b>
-    <a href="/account/">Manage your account</a>
-</p>
-{% endif %}
-
-<h2>Django members who have signed the pledge</h2>
-<div id="signees">
-    <ul>
-        {% for signee in signees %}
-        <li>{{ signee.get_full_name }}</li>
-        {% empty %}
-        <li><i>None yet—be the first!</i></li>
-        {% endfor %}
-    </ul>
+<div class="row">
+    <div class="span4">
+        <h2>Signed</h2>
+        {% if signess %}
+            <div id="signees">
+                <ul class="unstyled">
+                    {% for signee in signees %}
+                    <li>{{ signee.get_full_name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="lead">Be the first to sign the pledge!</p>
+        {% endif %}
+    </div>
+    {% if not user.get_profile.signed %}
+    <div class="signup span8">
+        <h2>Join the movement</h2>
+        {% if not user or not user.get_profile.signed %}
+            <p class="lead">Sign the pledge with one of your accounts below and join us in getting loud!</p>
+            <ul class="social unstyled">
+                {% for backend in social_auth.backends %}
+                <li><a class="btn" href="/login/{{ backend }}/"><img src="{{ STATIC_URL }}img/{{ backend }}.png"> {{ backend|capfirst }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>
+                <b>You have signed the pledge!</b>
+                <a class="btn btn-primary" href="/account/">Manage your account</a>
+            </p>
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
