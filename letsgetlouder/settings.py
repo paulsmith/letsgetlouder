@@ -203,7 +203,14 @@ try:
 except ImportError, e:
     print >> sys.stderr, "Unable to import local settings:", e
 
-COMPRESS_ENABLED = False # enable in local_settings.py if needed
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '50.56.29.156:11211',
+    }
+}
+
+COMPRESS_ENABLED = True
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
