@@ -14,6 +14,7 @@ Installation
     $ cd letsgetlouder
     $ virtualenv .
     $ . bin/activate
+    $ cd letsgetlouder
     $ cp local_settings.example.py local_settings.py
     $ python setup.py develop
     $ python manage.py syncdb
@@ -32,5 +33,5 @@ Deployment
 
 To deploy, run::
 
-    $ pip install -r dev.txt
+    $ pip install -r requirements/dev.txt
     $ fab production deploy
