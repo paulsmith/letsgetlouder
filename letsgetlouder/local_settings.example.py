@@ -16,6 +16,10 @@ INTERNAL_IPS = ('127.0.0.1', )
 #     'debug_toolbar',  
 # )
 
+# DEBUG_TOOLBAR_CONFIG = {
+#     'INTERCEPT_REDIRECTS': False,
+# }
+
 # You will need to get these from either Paul or Julia
 TWITTER_CONSUMER_KEY = ''                              
 TWITTER_CONSUMER_SECRET = ''          

@@ -28,19 +28,21 @@
         </script>
     </head>
     <body {% if not user.is_authenticated %}style="padding-top: 20px;"{% endif %}>
-        {% if user.is_authenticated %}
-         <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container">
-                    <ul class="nav pull-right">
-                      <li><a href="/"><i class="icon-home"> </i>Home</a></li>
-                      <li><a href="/account/"><i class="icon-user"> </i>Manage account</a></li>
-                      <li><a href="/log-out/"><i class="icon-off"> </i>Log out</a></li>
-                    </ul>
+      {% block nav %}
+          {% if user.is_authenticated %}
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                        <ul class="nav pull-right">
+                          <li><a href="/"><i class="icon-home"> </i>Home</a></li>
+                          <li><a href="/account/"><i class="icon-user"> </i>Manage account</a></li>
+                          <li><a href="/log-out/"><i class="icon-off"> </i>Log out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
+          {% endif %}
+      {% endblock %}
         <div class="container">
             <header class="page-header">
                 <h1>Let’s Get Louder <img src="{{ STATIC_URL }}img/horn.png"></h1>
@@ -50,12 +52,16 @@
             {% block content %}{% endblock %}
             </div>
             <footer>
-                Copyright &copy;2012 - Forever and Ever
-                <ul class="colophon pull-right">
-                  Created with <a href="http://djangoproject.com"><b>Django</b></a>
+                <ul class="unstyled pull-left">
+                  <li>Copyright &copy; 2012 - Forever<li>
+                  <li>Created with <a href="http://djangoproject.com"><b>Django</b></a></li>
+                </ul>
+                <ul class="unstyled pull-right">
+                    <li><a href="https://twitter.com/_LetsGetLouder" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true" data-dnt="true">Follow @_LetsGetLouder</a></li>
                 </ul>
             </footer>
         </div>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     {% block extra-js %}{% endblock %}
     </body>
 </html>
