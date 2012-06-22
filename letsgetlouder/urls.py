@@ -11,5 +11,5 @@ urlpatterns = patterns('',
     url(r'^unsign/$', 'letsgetlouder.views.unsign_view'),
     url(r'^log-out/$', 'letsgetlouder.views.logout_view'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('social_auth.urls')),
+    url(r'', include('allaccess.urls')),
 )
