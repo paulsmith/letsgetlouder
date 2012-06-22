@@ -23,9 +23,9 @@
             <p class="lead">Be the first to sign the pledge!</p>
         {% endif %}
     </div>
-    {% if not user.get_profile.signed %}
     <div class="signup span8">
-        <h2>Join the movement</h2>
+    {% if not user.get_profile.signed %}
+        <h2>Get loud!</h2>
         {% if not user or not user.get_profile.signed %}
             <p class="lead">Sign the pledge with one of your accounts below and join us in getting loud!</p>
             <ul class="social unstyled">
@@ -39,8 +39,15 @@
                 <a class="btn btn-primary" href="/account/">Manage your account</a>
             </p>
         {% endif %}
-    </div>
+    {% else %}
+    <h2>Thanks for signing the pledge!</h2>
+    <p class="lead">Help us get louder and spread the word.</p>
+    <ul class="unstyled">
+        <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://letsgetlouder.com/" data-text="Let's get louder and pledge that we will no longer attend conferences/events without a code of conduct." data-size="large" data-related="_LetsGetLouder" data-hashtags="letsgetlouder">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li>
+    </ul>
     {% endif %}
+     </div>
 </div>
 
 {% endblock %}

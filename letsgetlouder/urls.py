@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     url(r'^sign/$', 'letsgetlouder.views.sign_view'),
     url(r'^unsign/$', 'letsgetlouder.views.unsign_view'),
     url(r'^log-out/$', 'letsgetlouder.views.logout_view'),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('social_auth.urls')),
+    url(r'^buriedtreasure/', include(admin.site.urls)),
+    url(r'', include('social_auth.urls'))
 )
