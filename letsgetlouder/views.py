@@ -36,14 +36,14 @@ class LoginRedirect(OAuthRedirect):
     "Request additional permissions."
 
     def get_additional_parameters(self, provider):
-        "Return additional redirect parameters for this provider."
+        "Request additiona permissions for FB users."
         if provider.name == 'facebook':
             # Request permission to see user's email
             return {'scope': 'email'}
         return super(LoginRedirect, self).get_additional_parameters(provider)
 
     def get_callback_url(self, provider):
-        "Return the callback url for this provider."
+        "Point callback to customized view name."
         return reverse('login-callback', kwargs={'provider': provider.name})
 
 
@@ -51,6 +51,7 @@ class LoginCallback(OAuthCallback):
     "Customization to default django-all-access callback."
 
     def get_or_create_user(self, provider, access, info):
+        "Update newly created user using their profile information."
         user = super(LoginCallback, self).get_or_create_user(provider, access, info)
         update = {}
         if provider.name == 'facebook':
@@ -67,4 +68,3 @@ class LoginCallback(OAuthCallback):
             setattr(user, field, value)
             user.save()
         return user
-
