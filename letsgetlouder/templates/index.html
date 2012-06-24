@@ -31,7 +31,7 @@
             <p class="lead">Sign the pledge with one of your accounts below and join us in getting loud!</p>
             <ul class="social unstyled">
                 {% for provider in allaccess_providers %}
-                <li><a class="btn" href="{% url 'allaccess-login' provider.name %}"><img src="{{ STATIC_URL }}img/{{ provider.name }}.png"> {{ provider.name|capfirst }}</a></li>
+                <li><a class="btn" href="{% url 'login' provider.name %}"><img src="{{ STATIC_URL }}img/{{ provider.name }}.png"> {{ provider.name|capfirst }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
