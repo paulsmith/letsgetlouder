@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.management.base import NoArgsCommand, CommandError
 
 from allaccess.models import Provider, AccountAccess 
@@ -16,6 +17,8 @@ class Command(NoArgsCommand):
             'authorization_url': 'https://www.facebook.com/dialog/oauth',
             'access_token_url': 'https://graph.facebook.com/oauth/access_token',
             'profile_url': 'https://graph.facebook.com/me',
+            'key': getattr(settings, 'FACEBOOK_APP_ID', None) or None,
+            'secret': getattr(settings, 'FACEBOOK_API_SECRET', None) or None,
         }
         facebook, _ = Provider.objects.get_or_create(name='facebook', defaults=defaults)
         defaults = {
@@ -23,6 +26,8 @@ class Command(NoArgsCommand):
             'authorization_url': 'https://api.twitter.com/oauth/authenticate',
             'access_token_url': 'https://api.twitter.com/oauth/access_token',
             'profile_url': 'https://twitter.com/account/verify_credentials.json',
+            'key': getattr(settings, 'TWITTER_CONSUMER_KEY', None) or None,
+            'secret': getattr(settings, 'TWITTER_CONSUMER_SECRET', None) or None,
         }
         twitter, _ = Provider.objects.get_or_create(name='twitter', defaults=defaults)
         for social in UserSocialAuth.objects.all():
