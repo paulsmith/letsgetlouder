@@ -3,34 +3,17 @@
 {% block content %}
 <div class="account row">
     <div class="span12">
-    <h2>Your account</h2>
+    <h2>Thank you!</h2>
     {% if user.get_profile.signed %}
-        <p class="lead">Thank you {{ user.get_full_name }} for signing! View your pledge below:</p>
-        {% include "pledge.html" %}
-        <a class="btn btn-danger" href="/unsign/"><b>X</b> Un-sign the pledge</a>
-    {% else %}
+        <p class="lead">Thank you {{ user.get_full_name }} for signing the pledge. We appreciate you showing your support and getting loud.</p>
+        <ul class="social unstyled">
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://letsgetlouder.com/" data-text="Let's get louder and pledge that we will no longer attend conferences/events without a code of conduct." data-size="large" data-related="_LetsGetLouder" data-hashtags="letsgetlouder">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li>
+            <li><div class="fb-like" data-href="http://letsgetlouder.com/" data-send="false" data-layout="button_count" data-width="150" data-show-faces="true" data-action="recommend"></div></li>
+        </ul>
+        {% else %}
         <p class="lead">You have not signed the pledge. <a class="btn btn-success" href="/sign/">Sign the pledge</a></p>
     {% endif %}
-    </div>
-</div>
-<div class="row">
-    <div class="span4">
-        <h3>Your connected accounts:</h3>
-        <ul class="social unstyled">
-            {% for user in social_auth.associated %}
-            <li>
-                <a class="btn btn-danger" href="/disconnect/{{ user.provider }}/"><img src="{{ STATIC_URL }}img/{{ user.provider }}.png"> DISCONNECT</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="span8">
-        <h3>Other accounts you can connect to:</h3>
-        <ul class="social unstyled">
-        {% for provider in social_auth.not_associated %}
-            <li><a class="btn" href="/associate/{{ provider }}/"><img src="{{ STATIC_URL }}img/{{ provider }}.png"> CONNECT</a></li>
-        {% endfor %}
-        </ul>
     </div>
 </div>
 {% endblock %}
