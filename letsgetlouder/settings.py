@@ -180,11 +180,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'allaccess.context_processors.available_providers',
 )
 
-try:
-    from local_settings import *
-except ImportError, e:
-    print >> sys.stderr, "Unable to import local settings:", e
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
@@ -196,3 +191,8 @@ COMPRESS_ENABLED = True
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
+
+try:
+    from local_settings import *
+except ImportError, e:
+    print >> sys.stderr, "Unable to import local settings:", e
