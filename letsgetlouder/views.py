@@ -36,7 +36,7 @@ class LoginRedirect(OAuthRedirect):
     "Request additional permissions."
 
     def get_additional_parameters(self, provider):
-        "Request additiona permissions for FB users."
+        "Request additional permissions for FB users."
         if provider.name == 'facebook':
             # Request permission to see user's email
             return {'scope': 'email'}
