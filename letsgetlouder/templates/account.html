@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 
 {% block content %}
 <div class="account row">
@@ -11,8 +12,13 @@
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li>
             <li><div class="fb-like" data-href="http://letsgetlouder.com/" data-send="false" data-layout="button_count" data-width="150" data-show-faces="true" data-action="recommend"></div></li>
         </ul>
-        {% else %}
-        <p class="lead">You have not signed the pledge. <a class="btn btn-success" href="/sign/">Sign the pledge</a></p>
+    {% else %}
+        <p class="lead">
+            You have not signed the pledge.
+            <form action="{% url 'sign-pledge' %}" method='post'>{% csrf_token %}
+                <button type="submit" class="btn btn-success">Sign the pledge</button>
+            </form>
+        </p>
     {% endif %}
     </div>
 </div>

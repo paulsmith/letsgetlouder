@@ -15,17 +15,6 @@ def index_view(request):
         'signees': signees,
     })
 
-def sign_view(request):
-    signee = request.user.get_profile()
-    signee.signed = True
-    signee.save()
-    return redirect('/account/')
-
-def unsign_view(request):
-    signee = request.user.get_profile()
-    signee.signed = False
-    signee.save()
-    return redirect('/account/')
 
 def logout_view(request):
     logout(request)
