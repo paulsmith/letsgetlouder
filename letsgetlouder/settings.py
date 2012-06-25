@@ -125,7 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'social_auth',
+    'allaccess',
     'pledge',
     'compressor',
     'south',
@@ -163,11 +163,12 @@ LOGGING = {
 AUTH_PROFILE_MODULE = 'pledge.Signee'
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.contrib.github.GithubBackend',
+    'allaccess.backends.AuthorizedServiceBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/account/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
@@ -176,27 +177,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
-    'social_auth.context_processors.social_auth_by_name_backends',
-    'social_auth.context_processors.social_auth_backends',
+    'allaccess.context_processors.available_providers',
 )
-
-# OAuth-related settings for django-social-auth: actual values in local_settings.py
-TWITTER_CONSUMER_KEY         = ''
-TWITTER_CONSUMER_SECRET      = ''
-FACEBOOK_APP_ID              = ''
-FACEBOOK_API_SECRET          = ''
-GITHUB_APP_ID                = ''
-GITHUB_API_SECRET            = ''
-
-LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/account/'
-LOGIN_ERROR_URL    = '/login-error/'
-
-SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
-SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
-
-SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
-SOCIAL_AUTH_EXPIRATION = 'expires'
 
 try:
     from local_settings import *

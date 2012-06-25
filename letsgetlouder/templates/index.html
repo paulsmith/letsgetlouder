@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 
 {% block content %}
 <div class="row">
@@ -29,8 +30,8 @@
         {% if not user or not user.get_profile.signed %}
             <p class="lead">Sign the pledge with one of your accounts below and join us in getting loud!</p>
             <ul class="social unstyled">
-                {% for backend in social_auth.backends %}
-                <li><a class="btn" href="/login/{{ backend }}/"><img src="{{ STATIC_URL }}img/{{ backend }}.png"> {{ backend|capfirst }}</a></li>
+                {% for provider in allaccess_providers %}
+                <li><a class="btn" href="{% url 'login' provider.name %}"><img src="{{ STATIC_URL }}img/{{ provider.name }}.png"> {{ provider.name|capfirst }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
