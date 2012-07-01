@@ -29,6 +29,11 @@ class LoginRedirect(OAuthRedirect):
         if provider.name == 'facebook':
             # Request permission to see user's email
             return {'scope': 'email'}
+        if provider.name == 'google':
+            # Request permission to see user's profile and email
+            perms = ['userinfo.email', 'userinfo.profile']
+            scope = ' '.join(['https://www.googleapis.com/auth/' + p for p in perms])
+            return {'scope': scope}
         return super(LoginRedirect, self).get_additional_parameters(provider)
 
     def get_callback_url(self, provider):
@@ -53,6 +58,10 @@ class LoginCallback(OAuthCallback):
             # https://dev.twitter.com/docs/api/1/post/account/update_profile
             update['first_name'] = info.get('name', '')
             update['last_name'] = ''
+        elif provider.name == 'google':
+            update['first_name'] = info.get('given_name', '')
+            update['last_name'] = info.get('family_name', '')
+            update['email'] = info.get('email', '')
         for field, value in update.items():
             setattr(user, field, value)
             user.save()
