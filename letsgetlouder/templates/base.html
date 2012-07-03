@@ -1,10 +1,11 @@
 {% load url from future %}
 {% load compress %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Let’s Get Louder</title>
+        <meta name="description" content="A website where members of the Python community can pledge only to attend, speak at, assist, sponsor, or otherwise participate in conferences that publicly promote an anti-harassment and anti-discrimination code of conduct policy.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon">
         {% if debug %}
@@ -39,24 +40,24 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
-        <div class="container">
-            <header class="page-header">
-                <h1><a href="/">Let’s Get Louder <img src="{{ STATIC_URL }}img/horn.png"></a></h1>
-                <p class="lead">Because we've had enough.</p>
-            </header>
-            <div class="content">
-            {% block content %}{% endblock %}
-            </div>
-            <footer>
-                <ul class="unstyled pull-left">
-                  <li>Copyright &copy; 2012<li>
-                  <li>Created with <a href="http://djangoproject.com"><b>Django</b></a></li>
-                </ul>
-                <ul class="unstyled pull-right">
-                    <li><a href="https://twitter.com/_LetsGetLouder" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true" data-dnt="true">Follow @_LetsGetLouder</a></li>
-                </ul>
-            </footer>
+    <div class="container">
+        <header class="page-header">
+            <h1><a href="/">Let’s Get Louder <img src="{{ STATIC_URL }}img/horn.png"></a></h1>
+            <p class="lead">Because we've had enough.</p>
+        </header>
+        <div class="content">
+        {% block content %}{% endblock %}
         </div>
+        <footer>
+            <ul class="unstyled pull-left">
+              <li>Copyright &copy; 2012<li>
+              <li>Created with <a href="http://djangoproject.com"><b>Django</b></a></li>
+            </ul>
+            <ul class="unstyled pull-right">
+                <li><a href="https://twitter.com/_LetsGetLouder" class="twitter-follow-button" data-sh-count="false" data-show-screen-name="true" data-dnt="true">Follow @_LetsGetLouder</a>li>
+            </ul>
+        </footer>
+    </div>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     {% block extra-js %}{% endblock %}
     </body>
