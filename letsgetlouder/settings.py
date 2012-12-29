@@ -178,6 +178,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
     'allaccess.context_processors.available_providers',
+    'letsgetlouder.context_processors.heroku',
 )
 
 CACHES = {
@@ -192,7 +193,25 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
 
-try:
-    from local_settings import *
-except ImportError, e:
-    print >> sys.stderr, "Unable to import local settings:", e
+if 'DATABASE_URL' in os.environ:
+    # Running on Heroku
+    HEROKU = True
+
+    # Configure Postgres
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
+
+    # Local-memory caching for now
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake'
+        }
+    }
+else:
+    # Running locally
+    HEROKU = False
+    try:
+        from local_settings import *
+    except ImportError, e:
+        print >> sys.stderr, "Unable to import local settings:", e
