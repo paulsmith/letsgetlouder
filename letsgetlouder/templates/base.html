@@ -8,7 +8,7 @@
         <meta name="description" content="A website where members of the Python community can pledge only to attend, speak at, assist, sponsor, or otherwise participate in conferences that publicly promote an anti-harassment and anti-discrimination code of conduct policy.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ STATIC_URL }}img/favicon.ico" rel="shortcut icon">
-        {% if debug %}
+        {% if debug or heroku %}
           <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}less/styles.less">
           <script src="{{ STATIC_URL }}js/libs/less-1.3.0.min.js"></script>
         {% else %}

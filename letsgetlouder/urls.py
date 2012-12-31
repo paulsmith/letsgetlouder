@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
@@ -17,3 +18,13 @@ urlpatterns = patterns('',
     url(r'^login/(?P<provider>(\w|-)+)/$', LoginRedirect.as_view(), name='login'),
     url(r'^callback/(?P<provider>(\w|-)+)/$', LoginCallback.as_view(), name='login-callback'),
 )
+
+if getattr(settings, 'HEROKU', False):
+    # Heroku won't serve static files by default
+    # https://github.com/heroku/heroku-buildpack-python/issues/32
+    # Gunicorn with an async worker (Gevent) can handle this just fine for the
+    # expected load.
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.STATIC_ROOT, 'show_indexes': False, }),
+    )
