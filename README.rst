@@ -14,6 +14,7 @@ Installation
     $ cd letsgetlouder
     $ virtualenv .
     $ . bin/activate
+    $ cd letsgetlouder
     $ cp local_settings.example.py local_settings.py
     $ python setup.py develop
     $ python manage.py syncdb
@@ -26,3 +27,11 @@ To test the social network integration, add the following line to your
 
 Obtain the client IDs and consumer keys from Paul or Julia and add them
 to your local_settings.py
+
+Deployment
+----------
+
+To deploy, run::
+
+    $ pip install -r requirements/dev.txt
+    $ fab production deploy

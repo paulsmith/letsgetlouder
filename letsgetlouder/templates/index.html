@@ -1,33 +1,63 @@
 {% extends "base.html" %}
+{% load url from future %}
 
 {% block content %}
-<h2>The pledge</h2>
-{% include "pledge.html" %}
+<div class="row">
+    <div class="span12">
+        <h2>The pledge</h2>
+        {% include "pledge.html" %}
+    </div>
+</div>
 
-<h2>Sign the pledge</h2>
-{% if not user or not user.get_profile.signed %}
-<p>Click to sign in with one of your social network accounts:</p>
-<ul>
-    {% for backend in social_auth.backends %}
-    <li><a class="btn {{ backend }}" href="/login/{{ backend }}/">{{ backend }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>
-    <b>You have signed the pledge!</b>
-    <a href="/account/">Manage your account</a>
-</p>
-{% endif %}
-
-<h2>Django members who have signed the pledge</h2>
-<div id="signees">
-    <ul>
-        {% for signee in signees %}
-        <li>{{ signee.get_full_name }}</li>
-        {% empty %}
-        <li><i>None yet—be the first!</i></li>
-        {% endfor %}
-    </ul>
+<div class="row">
+    <div class="span4">
+        <h2>Signed</h2>
+        {% if signees %}
+            <div id="signees">
+                <ul class="unstyled">
+                    {% for signee in signees %}
+                    <li>{{ signee.get_full_name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="lead">Be the first to sign the pledge!</p>
+        {% endif %}
+    </div>
+    <div class="signup span7">
+    {% if not user.get_profile.signed %}
+        <h2>Get loud!</h2>
+        {% if not user or not user.get_profile.signed %}
+            <p class="lead">Sign the pledge with one of your accounts below and join us in getting loud!</p>
+            <ul class="social unstyled">
+                {% for provider in allaccess_providers %}
+                <li><a class="btn" href="{% url 'login' provider.name %}"><img src="{{ STATIC_URL }}img/{{ provider.name }}.png"> {{ provider.name|capfirst }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>
+                <b>You have signed the pledge!</b>
+                <a class="btn btn-primary" href="/account/">Manage your account</a>
+            </p>
+        {% endif %}
+    {% else %}
+        <h2>Thanks for signing the pledge!</h2>
+        <p class="lead">Help us get louder and spread the word.</p>
+        <ul class="social unstyled">
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://letsgetlouder.com/" data-text="Let's get louder and pledge that we will no longer attend conferences/events without a code of conduct." data-size="large" data-related="_LetsGetLouder" data-hashtags="letsgetlouder">Tweet</a>
+            </li>
+            <li><div class="fb-like" data-href="http://letsgetlouder.com/" data-send="false" data-layout="button_count" data-width="150" data-show-faces="true" data-action="recommend"></div></li>
+            <li><div class="g-plus" data-action="share" data-height="24" data-href="http://letsgetlouder.com/"></div></li>
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+        </ul>
+    {% endif %}
+    </div>
 </div>
 
 {% endblock %}

@@ -1,11 +1,11 @@
 # Django settings for letsgetlouder project.
-import os.path
-import sys
+import os
+
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
 
 where = os.path.dirname(__file__)
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+root = os.path.abspath(os.path.join(where, os.pardir))
 
 ADMINS = (
     ('Julia Elman', 'julia.elman@gmail.com'),
@@ -16,8 +16,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(where, 'letsgetlouder.db'), # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'letsgetlouder', # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -53,18 +53,18 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(root, 'media_root')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(root, 'static_root')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -80,6 +80,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -122,12 +123,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-    'social_auth',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    'allaccess',
     'pledge',
+    'compressor',
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -162,11 +163,12 @@ LOGGING = {
 AUTH_PROFILE_MODULE = 'pledge.Signee'
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.contrib.github.GithubBackend',
+    'allaccess.backends.AuthorizedServiceBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/account/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
@@ -175,29 +177,41 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
-    'social_auth.context_processors.social_auth_by_name_backends',
-    'social_auth.context_processors.social_auth_backends',
+    'allaccess.context_processors.available_providers',
+    'letsgetlouder.context_processors.heroku',
 )
 
-# OAuth-related settings for django-social-auth: actual values in local_settings.py
-TWITTER_CONSUMER_KEY         = ''
-TWITTER_CONSUMER_SECRET      = ''
-FACEBOOK_APP_ID              = ''
-FACEBOOK_API_SECRET          = ''
-GITHUB_APP_ID                = ''
-GITHUB_API_SECRET            = ''
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '50.56.29.156:11211',
+    }
+}
 
-LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/account/'
-LOGIN_ERROR_URL    = '/login-error/'
+COMPRESS_ENABLED = True
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+)
 
-SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
-SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+if 'DATABASE_URL' in os.environ:
+    # Running on Heroku
+    HEROKU = True
 
-SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
-SOCIAL_AUTH_EXPIRATION = 'expires'
+    # Configure Postgres
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
 
-try:
-    from local_settings import *
-except ImportError, e:
-    print >> sys.stderr, "Unable to import local settings:", e
+    # Local-memory caching for now
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake'
+        }
+    }
+else:
+    # Running locally
+    HEROKU = False
+    try:
+        from local_settings import *
+    except ImportError, e:
+        print >> sys.stderr, "Unable to import local settings:", e

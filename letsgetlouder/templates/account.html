@@ -1,51 +1,32 @@
 {% extends "base.html" %}
+{% load url from future %}
 
 {% block content %}
-<ul class="breadcrumb">
-    <li><a href="/">Home</a></li>
-</ul>
-
-<h2>Your account</h2>
-
-<p>Your name: {{ user.get_full_name }}</p>
-
-<p><a class="btn" href="/log-out/">Log out</a></p>
-
-<h3>The pledge</h3>
-{% include "pledge.html" %}
-
-{% if user.get_profile.signed %}
-<p class="signed">
-    <b>You have signed the pledge!</b>
-</p>
-
-<p class="unsign">
-    I changed my mind, I want to unsign the pledge.
-    <a class="btn btn-danger" href="/unsign/">Unsign</a>
-</p>
-{% else %}
-<p class="not-signed">
-    <i>You have not signed the pledge</i>
-    <a class="btn btn-primary" href="/sign/">Sign the pledge</a>
-</p>
-{% endif %}
-
-<p>Associated social networks:</p>
-<ul>
-    {% for user in social_auth.associated %}
-    <li>{{ user.provider }}
-        <a class="btn btn-danger" href="/disconnect/{{ user.provider }}/">disconnect</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<h2>Connect</h2>
-<p>Connect your Let’s Get Louder account with your:</p>
-<ul>
-    {% for provider in social_auth.not_associated %}
-    <li>
-        <a class="btn" href="/associate/{{ provider }}/">{{ provider }}</a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="account row">
+    <div class="span12">
+    <h2>Thank you!</h2>
+    {% if user.get_profile.signed %}
+        <p class="lead">Thank you {{ user.get_full_name }} for signing the pledge. We appreciate you showing your support and getting loud.</p>
+        <ul class="social unstyled">
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://letsgetlouder.com/" data-text="Let's get louder and pledge that we will no longer attend conferences/events without a code of conduct." data-size="large" data-related="_LetsGetLouder" data-hashtags="letsgetlouder">Tweet</a></li>
+            <li><div class="fb-like" data-href="http://letsgetlouder.com/" data-send="false" data-layout="button_count" data-width="150" data-show-faces="true" data-action="recommend"></div></li>
+            <li><div class="g-plus" data-action="share" data-height="24" data-href="http://letsgetlouder.com/"></div></li>
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+        </ul>
+    {% else %}
+        <p class="lead">
+            You have not signed the pledge.
+            <form action="{% url 'sign-pledge' %}" method='post'>{% csrf_token %}
+                <button type="submit" class="btn btn-success">Sign the pledge</button>
+            </form>
+        </p>
+    {% endif %}
+    </div>
+</div>
 {% endblock %}

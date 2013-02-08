@@ -14,6 +14,13 @@ framework.
 
 """
 import os
+import site
+
+if 'DATABASE_URL' not in os.environ:
+    ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+    ROOT = os.path.abspath(os.path.join(ROOT, os.pardir))
+    path = os.path.join(ROOT, 'env', 'lib', 'python2.6', 'site-packages')
+    site.addsitedir(path)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "letsgetlouder.settings")
 
