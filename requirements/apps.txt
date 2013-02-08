@@ -1,5 +1,8 @@
 Django==1.4.3
 django-all-access==0.4.1
+requests==0.14.2
+requests-oauthlib==0.2.0
+oauthlib==0.3.6
 django-compressor==1.1.2
 South==0.7.6
 psycopg2==2.4.5
